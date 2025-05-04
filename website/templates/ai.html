@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Management</title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="../static/aistyle.css">
+</head>
+{% with messages = get_flashed_messages(with_categories = true) %}
+{% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+        <div class="alert alert-danger alert-{{ category }}">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% else %}
+        <div class="alert alert-success alert-{{ category }}">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+    {% endfor %}
+{% endif %}
+{% endwith %}
+<body>
+    <div class="container">
+        <div class="left-side">
+            <div class="top-menu">
+                <button class="menuBf"><a href="/">Finances</a></button>
+                <button class="menuB"><a href="/report">Report</a></button>
+                <button class="menuB"><a href="/ai">AI ChatBOT</a></button>
+            </div>
+            <div class="chatbot-container">
+                <div class="chatbot-header">Chatbot</div>
+                <form method="POST" action="/ai">
+                <div class="chatbot-messages">
+                    <div class="chatbot-message bot-message">Hello! How can I help you with your finances?</div>
+                    {% for chat in chats %}
+                        <div class="chatbot-message user-message">{{ chat.message }}</div>
+                        <div class="chatbot-message bot-message">{{ chat.response }}</div>
+                    {% endfor %}
+                </div>
+                </form>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="user-info">
+                <span>{{user.username}}</span>
+                <button class="logout-btn" onclick="logoutUser()">Logout</button>
+            </div>
+            <hr>
+            <div class="request-container">
+                <form method="POST" action="/ai">
+                <button class="request-button" name="submit" value="new_chat">
+                    New Chat<br>
+                    <span>Start a new conversation.</span>
+                </button>
+                </form>
+                <div class="button-separator"><hr></div>
+                <form method="POST" action="/ai">
+                <button class="request-button" name="submit" value="budget_analysis">
+                    Budget Analysis<br>
+                    <span>Analyze your current spending and provide insights.</span>
+                </button>
+                </form>
+                 <div class="button-separator"><hr></div>
+                <form method="POST" action="/ai">
+                <button class="request-button" name="submit" value="planning_budget">
+                    Help Planning Budget<br>
+                    <span>Create a budget plan based on your income and goals.</span>
+                </button>
+                </form>
+                 <div class="button-separator"><hr></div>
+                <form method="POST" action="/ai">
+                <button class="request-button" name="submit" value="investment_recommendation">
+                    Investment Recommendation<br>
+                    <span>Get personalized investment recommendations.</span>
+                </button>
+                </form>
+                <div class="custom-request">
+                    <form method="POST" action="/ai">
+                    <p class="custom-request-title">Custom Financial Request:</p>
+                    <p class = "custom-request-description">Make a custom financial request (finance-related only):</p>
+                    <input type="text" name="customRequestText" id="customRequestText" placeholder="Enter your request">
+                    <button class="submit-btn" name="submit" value="custom">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+    function handleRequest(type) {
+        alert('Request type: ' + type);
+        // TODO: Send request to backend
+    }
+
+    function handleCustomRequest() {
+        var requestText = document.getElementById('customRequestText').value;
+        alert('Custom request: ' + requestText);
+        // TODO: Send custom request to backend
+    }
+</script>
+</body>
+</html>

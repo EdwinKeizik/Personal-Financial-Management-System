@@ -1,0 +1,229 @@
+:root {
+    --primary-color: #2C3E50;
+    --secondary-color: #1ABC9C;
+    --background-color: #ECF0F1;
+    --text-color: #34495E;
+    --button-hover: #16A085;
+    --border-color: #BDC3C7;
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    overflow: hidden;
+}
+.container {
+    display: flex;
+    height: 100vh;
+}
+.left-side {
+    width: 75%;
+    padding: 20px;
+    background: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+.top-menu {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+.top-menu a {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Set text color to white */
+    display: block;
+    width: 100%;
+}
+
+.menuBf, .menuB {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    flex: 1;
+    transition: background 0.3s;
+}
+.menuB:hover, .menuBf:hover {
+    background-color: var(--button-hover);
+}
+.chatbot-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+
+}
+
+.chatbot-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.chatbot-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    max-height: 580px;
+}
+
+.chatbot-message {
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    clear: both;
+}
+
+.bot-message {
+    background-color: #DCF8C6;
+    width: 80%;
+    height: auto;
+    float: left;
+}
+
+.user-message {
+    background-color: #E2F7CB;
+    float: right;
+}
+.right-side {
+    width: 25%;
+    background: white;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+}
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+.logout-btn { 
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.logout-btn:hover {
+    background-color: #c0392b;
+}
+.request-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.request-button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: left;
+}
+.button-separator {
+    height: 20px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+.request-button span {
+    font-size: 0.8em;
+    color: #eee;
+}
+
+.request-container hr {
+    border-color: rgba(255,255,255,0.3);
+}
+
+.request-button:hover {
+    background-color: var(--button-hover);
+}
+
+.custom-request {
+    margin-top: 30px;
+}
+.custom-request-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.custom-request-description {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+.custom-request input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.submit-btn:hover {
+    background: var(--button-hover);
+}
+.alert {
+    padding: 15px;
+    margin: 0 auto;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    position: fixed; 
+    top: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    z-index: 1000; 
+    width: auto;
+    height: 25px;
+    max-width: 600px;
+    font-size: 14px;
+    text-align: middle;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert .close {
+    position: middle;
+    top: 20px;
+    right: 15px;
+    color: inherit;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.alert .close:hover {
+    color: #000;
+    text-decoration: none;
+}

@@ -1,0 +1,258 @@
+/* Keep existing styles */
+
+:root {
+    --primary-color: #2C3E50;
+    --secondary-color: #1ABC9C;
+    --background-color: #ECF0F1;
+    --text-color: #34495E;
+    --button-hover: #16A085;
+    --border-color: #BDC3C7;
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    overflow: hidden; /* Prevents body scrollbars if container is 100vh */
+}
+.container {
+    display: flex;
+    height: 100vh;
+}
+.left-side {
+    width: 75%;
+    padding: 20px;
+    background: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack children vertically */
+}
+.top-menu {
+    display: flex;
+    gap: 10px;
+}
+.top-menu a {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Set text color to white */
+    display: block;
+    width: 100%;
+}
+.menuBf, .menuB {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    flex: 1;
+    transition: background 0.3s;
+}
+.menuB:hover, .menuBf:hover {
+    background-color: var(--button-hover);
+}
+.sorting-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap; /* Allow wrapping if needed */
+}
+select, input[type="text"], input[type="date"], input[type="number"] { /* Apply to all relevant inputs */
+    margin-top: 5px;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+.filter {
+    margin-top: 10px;
+    padding: 8px 20px;
+    border: none;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 20px; /* Keep rounded if desired */
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.filter:hover {
+    background-color: var(--button-hover);
+}
+
+
+.report-container {
+    margin-top: 20px;
+    flex-grow: 1; 
+    overflow-y: auto;
+    background: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse; 
+    border: none;
+}
+
+.summary-table td {
+    padding: 12px 8px; /* Adjust padding as needed */
+    border: none; /* Remove cell borders */
+    text-align: left;
+    vertical-align: middle; /* Align items nicely in rows */
+    font-size: 1.1em; /* Slightly larger font for summary */
+}
+
+/* Style the value cells slightly differently if desired */
+.summary-table td:last-child {
+    font-weight: bold;
+    text-align: right;
+}
+
+/* Target specific value IDs if needed */
+#total-income-value, #period-income-value {
+    color: green;
+}
+#total-expenses-value, #period-expenses-value {
+    color: red;
+}
+/* Style inputs and buttons within the summary table */
+.summary-table input[type="date"],
+.summary-table input[type="number"] {
+    padding: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin: 0 5px;
+    font-size: 0.9em; /* Slightly smaller font for inputs */
+}
+.show{
+
+    margin-top: 10px;
+}
+.summary-table button {
+    padding: 6px 12px;
+    border: none;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-left: 5px;
+    font-size: 0.9em;
+}
+
+.summary-table button:hover {
+   background-color: var(--button-hover);
+}
+
+.right-side {
+    width: 25%;
+    background: white;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    
+}
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+.logout-btn { /* Style the logout button */
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.logout-btn:hover {
+    background-color: #c0392b;
+}
+
+.action-buttons {
+    display: flex;
+    margin-top: 10px;
+}
+.action-buttons button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.action-buttons button:last-child {
+    background: #E74C3C;
+}
+.action-buttons button:hover {
+    background: var(--button-hover);
+}
+.form-section {
+    margin-top: 10px;
+}
+.input-group {
+    border-top: 1px solid var(--border-color);
+    margin-top: 20px;
+    padding-top: 10px;
+}
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.submit-btn:hover {
+    background: var(--button-hover);
+}
+/* Alert Styles - Keep as they are */
+.alert {
+    padding: 10px 15px; /* Adjusted padding */
+    margin: 0 auto;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    position: fixed;
+    top: 10px; /* Position slightly lower */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: auto;
+    max-width: 90%; /* Allow more width */
+    font-size: 14px;
+    text-align: center; /* Center text */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space out text and close button */
+}
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+.alert .close {
+    /* position: middle; */ /* Removed */
+    /* top: 20px; */ /* Removed */
+    /* right: 15px; */ /* Removed */
+    color: inherit;
+    background: none;
+    border: none;
+    font-size: 20px; /* Larger close button */
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 0 0 15px; /* Add padding to the left */
+    margin-left: 15px; /* Space between message and button */
+}
+.alert .close:hover {
+    color: #000;
+    text-decoration: none;
+}

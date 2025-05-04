@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Management</title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+{% with messages = get_flashed_messages(with_categories = true) %}
+{% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+        <div class="alert alert-danger alert-{{ category }}">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% else %}
+        <div class="alert alert-success alert-{{ category }}">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+    {% endfor %}
+{% endif %}
+{% endwith %}
+<body>
+    <div class="container">
+        <div class="left-side">
+            <div class="top-menu">
+                <button class="menuBf"><a href="/">Finances</a></button>
+                <button class="menuB"><a href="/report">Report</a></button>
+                <button class="menuB"><a href="/ai">AI ChatBOT</a></button>
+            </div>
+            <div class="sorting-options">
+                <input class="Fprice" type="number" placeholder="Search by Amount" id="Fprice">
+                <input class="Fname" type="text" placeholder="Search by Name" id="Fname">
+                <input class="Fdate" type="date" id="Fdate">
+                <select class="Ftype" id="Ftype">
+                    <option>All</option>
+                    <option>Income</option>
+                    <option>Expenses</option>
+                    <option>Planning Expenses</option>
+                </select>
+            </div>
+            <a href="#" onclick="applyFilters()"><button class="filter">Search</button></a>
+            <div class="report-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <form method="POST">
+                        <tbody class="report-list">
+                            {% for reports in income %}
+                            <tr class="report-item" data-id="{{ reports.id }}" data-type="income">
+                                <td>{{ reports.amount }} €</td>
+                                <td>{{ reports.name }}</td>
+                                <td>{{ reports.date }}</td>
+                                <td>{{ reports.type }}</td>
+                                <td><button class="delete-btn" name="delete" value="delI_{{reports.id}}">Delete</button></td>
+                            </tr>
+                            {% endfor %}
+                            {% for reports in expenses %}
+                            <tr class="report-item" data-id="{{ reports.id }}" data-type="expenses">
+                                <td>{{ reports.amount }} €</td>
+                                <td>{{ reports.name }}</td>
+                                <td>{{ reports.date }}</td>
+                                <td>{{ reports.type }}</td>
+                                <td><button class="delete-btn" name="delete" value="delE_{{reports.id}}">Delete</button></td>
+                            </tr>
+                            {% endfor %}
+                            {% for reports in planning %}
+                            <tr class="report-item" data-id="{{ reports.id }}" data-type="planning">
+                                <td>{{ reports.amount }} €</td>
+                                <td>{{ reports.name }}</td>
+                                <td>{{ reports.date }}</td>
+                                <td>{{ reports.type }}</td>
+                                <td><button class="delete-btn" name="delete" value="delP_{{reports.id}}">Delete</button></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </form>
+                </table>
+            </div>
+
+        </div>
+        <div class="right-side">
+            <div class="user-info">
+                <span>{{user.username}}</span>
+                <button class="logout-btn" onclick="logoutUser()">Logout</button>
+            </div>
+            <div class="form-section">
+                <form method="POST" action="/">
+                    <div class="input-group">
+                        <h3>Income</h3>
+                        <input name="amountI" id="amountI" type="number" placeholder="Amount(€)">
+                        <input name="nameI" id="nameI" type="text" placeholder="Name">
+                        <input name="dateI" id="dateI" type="date">
+                    </div>
+                    <button class="submit-btn" name="submit" value="income">Confirm Income</button>
+                </form>
+            
+                <form method="POST" action="/">
+                    <div class="input-group">
+                        <h3>Expenses</h3>
+                        <input name="amountE" id="amountE" type="number" placeholder="Amount(€)">
+                        <input name="nameE" id="nameE" type="text" placeholder="Name">
+                        <input name="dateE" id="dateE" type="date">
+                    </div>
+                    <button class="submit-btn" name="submit" value="expenses">Confirm Expenses</button>
+                </form>
+            
+                <form method="POST" action="/">
+                    <div class="input-group">
+                        <h3>Planning Expenses</h3>
+                        <input name="amountP" id="amountP" type="number" placeholder="Amount(€)">
+                        <input name="nameP" id="nameP" type="text" placeholder="Name">
+                        <input name="dateP" id="dateP" type="date">
+                    </div>
+                    <button class="submit-btn" name="submit" value="planning">Confirm Planning</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

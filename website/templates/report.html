@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Management</title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="../static/rstyle.css">
+</head>
+{% with messages = get_flashed_messages(with_categories = true) %}
+{% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+        <div class="alert alert-danger alert-{{ category }}">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% else %}
+        <div class="alert alert-success alert-{{ category }}">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+    {% endfor %}
+{% endif %}
+{% endwith %}
+<body>
+    <div class="container">
+        <div class="left-side">
+            <div class="top-menu">
+                <button class="menuBf"><a href="/">Finances</a></button>
+                <button class="menuB"><a href="/report">Report</a></button>
+                <button class="menuB"><a href="/ai">AI ChatBOT</a></button>
+            </div>
+            <div class="report-container">
+                <table class="summary-table">
+                    <tbody>
+                        <tr>
+                            <td>Total Income:</td>
+                            <td id="total-income-value">€ {{ total_income }}</td> </tr>
+                        <tr>
+                            <td>Total Expenses:</td>
+                            <td id="total-expenses-value">€ {{ total_expenses }}</td> </tr>
+                        <tr>
+                            <td>Total Planned Expenses:</td>
+                            <td id="total-planning-value">€ {{ total_planning }}</td> </tr>
+
+                        <tr><td colspan="2" style="height: 10px;"></td></tr>
+
+                        <tr>
+                            <td>Income between:</td>
+                            <td>
+                                <form method="GET" action="/report">
+                                    <input type="date" id="income-start-date" name="Istart_date" value="{{ start_date }}">
+                                    and
+                                    <input type="date" id="income-end-date" name="Iend_date" value="{{ end_date }}">
+                                    <span id="period-income-value" style="margin-left: 10px;">€ {{ total_period_income }}</span>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Expenses between:</td>
+                                <td>
+                                    <input type="date" id="expenses-start-date" name="Estart_date" value="{{ start_date }}">
+                                    and
+                                    <input type="date" id="expenses-end-date" name="Eend_date" value="{{ end_date }}">
+                                    <span id="period-expenses-value" style="margin-left: 10px;">€ {{ total_period_expenses }}</span>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Planned between:</td>
+                                <td>                               
+                                    <input type="date" id="planning-start-date" name="Pstart_date" value="{{ start_date }}">
+                                    and
+                                    <input type="date" id="planning-end-date" name="Pend_date" value="{{ end_date }}">
+                                    <span id="period-planning-value" style="margin-left: 10px;">€ {{ total_period_planning }}</span>
+                                    <br>
+                                    <button type="submit" class="show">Show</button>
+                                </form>
+                                </td>
+                            </tr>
+
+
+                         <tr>
+                            <td>Left to Cover Planned Expenses:</td>
+                            <td id="cover-planning-value">€ {{cover}}</td> </tr>
+
+
+                        <tr>
+                            <td>Main Balance (Income - Expenses):</td>
+                            <td id="main-balance-value">€ {{balance}}</td> </tr>
+
+                        <tr>
+                            <td>Savings Account Balance:</td>
+                            <td id="savings-balance-value">€ {{total_savings}}</td> </tr>
+                        <tr>
+                            <td>Manage Savings:</td>
+                            <form method="POST" action="/report">
+                            <td>
+                                <input type="number" name="transfer-amount" id="transfer-amount" placeholder="Amount" step="0.01">
+                                <button name="submit" value="transfer">Transfer to Savings</button>
+                                <button name="submit" value="withdraw">Withdraw from Savings</button>
+                            </td>
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        <div class="right-side">
+            <div class="user-info">
+                <span>{{user.username}}</span>
+                <button class="logout-btn" onclick="logoutUser()">Logout</button>
+            </div>
+            <div class="form-section">
+                <form method="POST" action="/report">
+                    <div class="input-group">
+                        <h3>Income</h3>
+                        <input name="amountI" id="amountI" type="number" placeholder="Amount" step="0.01" required>
+                        <input name="nameI" id="nameI" type="text" placeholder="Name" required>
+                        <input name="dateI" id="dateI" type="date" required>
+                    </div>
+                    <button class="submit-btn" name="submit" value="income">Confirm Income</button>
+                </form>
+
+                <form method="POST" action="/report">
+                    <div class="input-group">
+                        <h3>Expenses</h3>
+                        <input name="amountE" id="amountE" type="number" placeholder="Amount" step="0.01" required>
+                        <input name="nameE" id="nameE" type="text" placeholder="Name" required>
+                        <input name="dateE" id="dateE" type="date" required>
+                    </div>
+                    <button class="submit-btn" name="submit" value="expenses">Confirm Expenses</button>
+                </form>
+
+                <form method="POST" action="/report">
+                    <div class="input-group">
+                        <h3>Planning Expenses</h3>
+                        <input name="amountP" id="amountP" type="number" placeholder="Amount" step="0.01" required>
+                        <input name="nameP" id="nameP" type="text" placeholder="Name" required>
+                        <input name="dateP" id="dateP" type="date" required>
+                    </div>
+                    <button class="submit-btn" name="submit" value="planning">Confirm Planning</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
